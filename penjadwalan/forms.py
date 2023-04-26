@@ -8,9 +8,17 @@ class FormJadwal(forms.ModelForm):
     class Meta:
         model = Jadwal
         fields = '__all__'
+        HARI_CHOICES= [
+    ('senin', 'Senin'),
+    ('selasa', 'Selasa'),
+    ('rabu', 'Rabu'),
+    ('kamis', 'Kamis'),
+    ('jumat', 'Jumat'),
+    ('sabtu', 'Sabtu'),
+    ]
 
         widgets = {
-            'hari' : forms.TextInput({'class':'form-control'}),
+            'hari' : forms.Select(choices=HARI_CHOICES),
             #'tanggal' : forms.DateInput({'type': 'date'}),
             'waktu' : forms.TimeInput({'type': 'time'}),
             'matakuliah_id' : forms.Select({'class':'form-control'}),

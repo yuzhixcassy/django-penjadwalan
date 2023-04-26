@@ -32,6 +32,7 @@ def signup(request):
 
 
 #                                   J A D W A L
+
 @login_required(login_url=settings.LOGIN_URL)
 def jadwal(request):
 
