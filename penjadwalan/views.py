@@ -33,7 +33,6 @@ def signup(request):
 
 #                                   J A D W A L
 
-@login_required(login_url=settings.LOGIN_URL)
 def jadwal(request):
 
     jdwl = Jadwal.objects.all().order_by('-id')
@@ -119,7 +118,6 @@ def cek_bentrok(form_jadwal:FormJadwal):
 
 
 #                                   D O S E N
-@login_required(login_url=settings.LOGIN_URL)
 def dosen(request):
     dsn = Dosen.objects.all().order_by('-id')
     paginator = Paginator(dsn, 4)
@@ -179,7 +177,6 @@ def hapus_dosen(request, id_dosen):
 
 
 #                                   M A T K U L
-@login_required(login_url=settings.LOGIN_URL)
 def matakuliah(request):
 
     matkul = Matakuliah.objects.all().order_by('-id')
@@ -236,7 +233,6 @@ def hapus_matakuliah(request, id_matakuliah):
 
 
 #                                   R U A N G A N
-@login_required(login_url=settings.LOGIN_URL)
 def ruangan(request):
 
     rngn = Ruangan.objects.all().order_by('lab')
