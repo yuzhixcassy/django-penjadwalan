@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<!-- sidebar -->
+  <!-- <nav class="sidebar close">
+    <header>
+      <div class="image-text">
+        <span class="image">
+          <img src=" {% static 'img/lab.png' %}" alt="" />
+        </span>
+
+        <div class="text logo-text">
+          <span class="name">Labict</span>
+          <span class="profession">Matakuliah</span>
+        </div>
+      </div>
+
+      <i class="bx bx-chevron-right toggle"></i>
+    </header>
+
+    <div class="menu-bar">
+      <div class="menu">
+        <ul class="menu-links">
+          <li class="nav-linkl">
+            <a href="../home">
+              <i class="bx bx-home-alt icon"></i>
+              <span class="text nav-text">Dashboard</span>
+            </a>
+          </li>
+
+          <li class="nav-link1">
+            <a href="../jadwal">
+              <i class='bx bx-calendar icon'></i>
+              <span class="text nav-text">Jadwal</span>
+            </a>
+          </li>
+
+          <li class="nav-linkl">
+            <a href="../matakuliah">
+              <i class="bx bxs-book icon"></i>
+              <span class="text nav-text">Matakuliah</span>
+            </a>
+          </li>
+
+          <li class="nav-linkl">
+            <a href="../dosen">
+              <i class="bx bx-face icon"></i>
+              <span class="text nav-text">Dosen</span>
+            </a>
+          </li>
+
+          <li class="nav-linkl">
+            <a href="../ruangan">
+              <i class="bx bx-buildings icon"></i>
+              <span class="text nav-text">Ruangan</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bottom-content">
+        <li class="">
+          <a href="#">
+            <i class="bx bxs-user icon"></i>
+            <span class="text nav-text">Admin</span>
+          </a>
+        </li>
+        <li class="">
+          <a href="../keluar">
+            <i class="bx bx-log-out icon"></i>
+            <span class="text nav-text">Logout</span>
+          </a>
+        </li>
+      </div>
+    </div>
+  </nav> -->
+
+<script src="https://unpkg.com/feather-icons"></script>
+
+<div class="container">
+  <!-- kalo gabisa hapus aja search nya -->
+  <div class="input-group mt-4 mb-3 w-50">
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search"
+      aria-label="Search"
+      aria-describedby="search-addon"
+    />
+    <span class="input-group-text" id="search-addon">
+      <i data-feather="search"></i>
+    </span>
+  </div>
+  <!-- sampai sini -->
+  <div>
+    <a href="/tambah-matakuliah" class="text-decoration-none"
+      ><button
+        type="button"
+        class="btn btn-primary btn-sm mb-3"
+        style="font-style: italic"
+      >
+        <i data-feather="plus" class="icon-tambah me-1" style="height: 20"></i>
+        Add Matakuliah
+      </button>
+    </a>
+  </div>
+  {% for message in messages %} {% if message %}
+  <div class="alert alert-success">{{ message }}</div>
+  {% endif %} {% endfor %}
+  <table class="table table-bordered table-striped custom-table">
+    <!-- field -->
+    <thead>
+      <tr>
+        <th>Kode Matakuliah</th>
+        <th>Matakuliah</th>
+        <th>SKS</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for matakuliah in matkul %}
+      <tr>
+        <td><a href="{% url 'ubah_matakuliah' matakuliah.id %}">{{matakuliah.kodematkul}}</a></td>
+        <td>{{matakuliah.matkul}}</td>
+        <td>{{matakuliah.sks}}</td>
+        <td>
+            <a
+              href="{% url 'ubah_matakuliah' matakuliah.id %}"
+              class="text-decoration-none">
+              <button type="button" class="btn btn-primary btn-sm me-3" value="{{matakuliah.kodematkul}}">
+                Update
+              </button></a>
+              <button
+              type="button"
+              class="btn btn-danger btn-sm"
+              data-toggle="modal"
+              data-target="#hapus-{{ matakuliah.id }}">
+              delete
+            </button>
+          </div>
+        </td>
+        <div class="modal" id="hapus-{{ matakuliah.id }}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="modal-title">
+                  <h3>delete</h3>
+                </div>
+              </div>
+              <div class="modal-body">
+                Apakah anda yakin akan menghapus data matakuliah<strong
+                  >{{ matakuliah.matkul }}</strong
+                >
+                dengan Kode Matakuliah <strong>{{ matakuliah.kodematkul }}</strong> ?
+              </div>
+              <div class="modal-footer">
+                <a
+                  href="{% url 'hapus_matakuliah' matakuliah.id %}"
+                  class="btn btn-danger"
+                  >Hapus</a
+                >
+                <button class="btn btn-dark" data-dismiss="modal">Back</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="container mt-5 mb-5">
+    <div class="pagination mt-5">
+      <span class="step-links">
+        {% if matkul.has_previous %}
+
+        <a href="?page=1" style="color: #fff; text-decoration: none;">
+          <button type="button" class="btn btn-info">
+          &laquo; first</button>
+        </a>
+        
+          <a style=" text-decoration: none; color: #fff;" href="?page={{ matkul.previous_page_number }}">
+            <button type="button" class="btn btn-primary">previous</button>
+          </a>
+      
+        {% endif %}
+
+        {% if matkul.has_next %}
+        
+          <a href="?page={{ matkul.next_page_number }}" style="color: #fff; text-decoration: none;">
+            <button type="button" class="btn btn-primary">Next</button>
+          </a>
+
+        <a href="?page={{ matkul.paginator.num_pages }}" style="color: #fff; text-decoration: none; ">
+          <button type="button" class="btn btn-info">
+            Last &raquo;
+          </button>
+        </a>
+     
+        {% endif %}
+      </span>
+    </div>
+    <div class="mt-3">
+      <span class="current">
+        Page {{ matkul.number }} of {{ matkul.paginator.num_pages }}.
+      </span>
+    </div>
+  </div>
+  {% endblock %}

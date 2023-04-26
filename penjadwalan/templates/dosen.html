@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+
+
+<!-- content -->
+<script src="https://unpkg.com/feather-icons"></script>
+
+<div class="container">
+  <!-- kalo gabisa hapus aja search nya -->
+  <div class="input-group mt-4 mb-3 w-50">
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search"
+      aria-label="Search"
+      aria-describedby="search-addon"
+    />
+    <span class="input-group-text" id="search-addon">
+      <i data-feather="search"></i>
+    </span>
+  </div>
+  <!-- sampai sini -->
+  <div>
+    <a href="/tambah-dosen" class="text-decoration-none"
+      ><button
+        type="button"
+        class="btn btn-primary btn-sm mb-3"
+        style="font-style: italic"
+      >
+        <i data-feather="plus" class="icon-tambah me-1" style="height: 20"></i>
+        Add Dosen
+      </button>
+    </a>
+  </div>
+  {% for message in messages %} {% if message %}
+  <div class="alert alert-success">{{ message }}</div>
+  {% endif %} {% endfor %}
+  <table class="table table-bordered table-striped custom-table">
+    <!-- field -->
+    <thead>
+      <tr>
+        <th>NIP</th>
+        <th>Nama</th>
+        <th>Notelp</th>
+        <th>E-mail</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dosen in dsn %}
+      <tr>
+        <td><a href="{% url 'ubah_dosen' dosen.id %}">{{dosen.nip}}</a></td>
+        <td>{{dosen.nama}}</td>
+        <td>{{dosen.notelp}}</td>
+        <td>{{dosen.mail}}</td>
+        <td>
+            <a
+              href="{% url 'ubah_dosen' dosen.id %}"
+              class="text-decoration-none">
+              <button type="button" class="btn btn-primary btn-sm me-3" value="{{dosen.nip}}">
+                Update
+              </button></a>
+              <button
+              type="button"
+              class="btn btn-danger btn-sm"
+              data-toggle="modal"
+              data-target="#hapus-{{ dosen.id }}">
+              delete
+            </button>
+          </div>
+        </td>
+        <div class="modal" id="hapus-{{ dosen.id }}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="modal-title">
+                  <h3>delete</h3>
+                </div>
+              </div>
+              <div class="modal-body">
+                Apakah anda yakin akan menghapus data dosen<strong
+                  >{{ dosen.nama }}</strong
+                >
+                dengan NIP <strong>{{ dosen.nip }}</strong> ?
+              </div>
+              <div class="modal-footer">
+                <a
+                  href="{% url 'hapus_dosen' dosen.id %}"
+                  class="btn btn-danger"
+                  >Hapus</a
+                >
+                <button class="btn btn-dark" data-dismiss="modal">Back</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="container mt-5 mb-5">
+    <div class="pagination mt-5">
+      <span class="step-links">
+        {% if dsn.has_previous %}
+        <a href="?page=1" style="color: #fff; text-decoration: none;">
+          <button type="button" class="btn btn-info">&laquo; First</button>
+        </a>     
+          <a href="?page={{ dsn.previous_page_number }}" style="color: #fff; text-decoration: none;">
+            <button type="button" class="btn btn-primary">Previous</button>
+          </a>
+        
+        {% endif %}
+
+        {% if dsn.has_next %}
+
+        
+          <a href="?page={{ dsn.next_page_number }}" style="color: #fff; text-decoration: none;">
+            <button type="button" class="btn btn-primary">Next</button>
+          </a>
+        
+             
+          <a href="?page={{ dsn.paginator.num_pages }}" style="color: #fff; text-decoration: none;"> 
+            <button type="button" class="btn btn-info">Last &raquo;</button>
+            </a>
+        {% endif %}
+      </span>
+    </div>
+
+    <div class="mt-3">
+      <span class="current">
+        Page {{ dsn.number }} of {{ dsn.paginator.num_pages }}.
+      </span>
+    </div>
+
+  </div>
+  {% endblock %}

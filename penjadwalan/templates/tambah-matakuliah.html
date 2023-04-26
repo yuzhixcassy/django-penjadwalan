@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+    <div class="container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="mb-3" style="font-weight: bold;">Add <span class="text-info">Dosen</span></div>
+                {% if pesan %}
+                <div class="alert alert-success">{{pesan}}</div>
+                {% endif %}
+                <form action="/tambah-matakuliah/" method="POST" enctype="multipart/form-data">
+
+              {% csrf_token %} 
+              {{ form.as_p}}
+                <h6></h6>
+
+                <button type="submit" class="btn btn-info text-white">Add</button>
+
+                <button class="btn btn-danger">
+                  <a href="/matakuliah" class="text-white text-decoration-none">
+                    back
+                  </a>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+
+
+
+
+
+    

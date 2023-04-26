@@ -1,0 +1,119 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAB ICT UBL</title>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link
+    href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    rel="stylesheet"
+  />
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/home2.css' %}" />
+  </head>
+  <body>
+    {% include 'judul.html' %} 
+    
+    {% block content %}
+
+     {% endblock %}
+
+     <nav class="sidebar close">
+      <header>
+        <div class="image-text">
+          <span class="image">
+            <img src="{% static 'img/lab.png' %}" alt="" />
+          </span>
+
+          <div class="text logo-text">
+            <span class="name">Labict</span>
+            <span class="profession">Penjadwalan</span>
+          </div>
+        </div>
+
+        <i class="bx bx-chevron-right toggle"></i>
+      </header>
+
+      <div class="menu-bar">
+        <div class="menu">
+          <!-- <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" placeholder="Search...">
+                </li> -->
+
+          <ul class="menu-links">
+            <li class="nav-link1">
+              <a href="../home">
+                <i class="bx bx-home-alt icon"></i>
+                <span class="text nav-text">Dashboard</span>
+              </a>
+            </li>
+
+            <li class="nav-link1">
+              <a href="../jadwal">
+                <i class='bx bx-calendar icon'></i>
+                <span class="text nav-text">Jadwal</span>
+              </a>
+            </li>
+
+            <li class="nav-link1">
+              <a href="../matakuliah">
+                <i class="bx bxs-book icon"></i>
+                <span class="text nav-text">Matakuliah</span>
+              </a>
+            </li>
+
+            <li class="nav-link1">
+              <a href="../dosen">
+                <i class="bx bx-face icon"></i>
+                <span class="text nav-text">Dosen</span>
+              </a>
+            </li>
+
+            <li class="nav-link1">
+              <a href="../ruangan">
+                <i class="bx bx-buildings icon"></i>
+                <span class="text nav-text">Ruangan</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bottom-content">
+          <li class="">
+            <a href="../signup">
+              <i class="bx bxs-user icon"></i>
+              <span class="text nav-text">Admin</span>
+            </a>
+          </li>
+          <li class="">
+            <a href="../keluar">
+              <i class="bx bx-log-out icon"></i>
+              <span class="text nav-text">Logout</span>
+            </a>
+          </li>
+
+          <!-- hero sections start  -->
+        </div>
+      </div>
+    </nav>
+
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/bootstrap.min.js' %}"
+    ></script>
+    <script>
+      feather.replace();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>
