@@ -36,18 +36,14 @@ def signup(request):
 def jadwal(request):
 
     jdwl = Jadwal.objects.all().order_by('-id')
-
-    
     paginator = Paginator(jdwl, 5)
     page = request.GET.get('page')
     jdwl = paginator.get_page(page)
-
 
     konteks = {
         'jdwl' : jdwl,
     }
     return render(request, 'jadwal.html', konteks) #konteks
-
 
 @login_required(login_url=settings.LOGIN_URL)
 def tambah_jadwal(request):

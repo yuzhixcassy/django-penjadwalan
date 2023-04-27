@@ -90,7 +90,7 @@
           <li class="">
             <a href="../signup">
               <i class="bx bxs-user icon"></i>
-              <span class="text nav-text">Admin</span>
+              <span class="text nav-text">{% if user.is_authenticated %} <strong>{{user}}</strong> {% endif %}</span>
             </a>
           </li>
           <li class="">
