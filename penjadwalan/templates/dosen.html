@@ -4,14 +4,19 @@
 
 {% load static %}
 
-
-
 <!-- content -->
 <script src="https://unpkg.com/feather-icons"></script>
 
 <div class="container">
+  <div class="mt-3 mb-3">
+    <form action="" method="post">
+      {% csrf_token %}
+      
+      <input type="search" name="cari" placeholder="cari: Kucho Putro" class="form-control">
+    </form>
+  </div>
   <!-- kalo gabisa hapus aja search nya -->
-  <div class="input-group mt-4 mb-3 w-50">
+  <!-- <div class="input-group mt-4 mb-3 w-50">
     <input
       type="search"
       class="form-control"
@@ -22,7 +27,7 @@
     <span class="input-group-text" id="search-addon">
       <i data-feather="search"></i>
     </span>
-  </div>
+  </div> -->
   <!-- sampai sini -->
   <div>
     <a href="/tambah-dosen" class="text-decoration-none"
@@ -53,7 +58,7 @@
     <tbody>
       {% for dosen in dsn %}
       <tr>
-        <td><a href="{% url 'ubah_dosen' dosen.id %}">{{dosen.nip}}</a></td>
+        <td>{{dosen.nip}}</td>
         <td>{{dosen.nama}}</td>
         <td>{{dosen.notelp}}</td>
         <td>{{dosen.mail}}</td>
@@ -82,10 +87,7 @@
                 </div>
               </div>
               <div class="modal-body">
-                Apakah anda yakin akan menghapus data dosen<strong
-                  >{{ dosen.nama }}</strong
-                >
-                dengan NIP <strong>{{ dosen.nip }}</strong> ?
+                Apakah anda yakin akan menghapus data dosen<strong> {{ dosen.nama }} </strong>dengan NIP<strong> {{ dosen.nip }}</strong>?
               </div>
               <div class="modal-footer">
                 <a

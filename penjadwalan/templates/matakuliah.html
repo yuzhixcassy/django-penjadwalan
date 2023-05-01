@@ -4,85 +4,17 @@
 
 {% load static %}
 
-<!-- sidebar -->
-  <!-- <nav class="sidebar close">
-    <header>
-      <div class="image-text">
-        <span class="image">
-          <img src=" {% static 'img/lab.png' %}" alt="" />
-        </span>
-
-        <div class="text logo-text">
-          <span class="name">Labict</span>
-          <span class="profession">Matakuliah</span>
-        </div>
-      </div>
-
-      <i class="bx bx-chevron-right toggle"></i>
-    </header>
-
-    <div class="menu-bar">
-      <div class="menu">
-        <ul class="menu-links">
-          <li class="nav-linkl">
-            <a href="../home">
-              <i class="bx bx-home-alt icon"></i>
-              <span class="text nav-text">Dashboard</span>
-            </a>
-          </li>
-
-          <li class="nav-link1">
-            <a href="../jadwal">
-              <i class='bx bx-calendar icon'></i>
-              <span class="text nav-text">Jadwal</span>
-            </a>
-          </li>
-
-          <li class="nav-linkl">
-            <a href="../matakuliah">
-              <i class="bx bxs-book icon"></i>
-              <span class="text nav-text">Matakuliah</span>
-            </a>
-          </li>
-
-          <li class="nav-linkl">
-            <a href="../dosen">
-              <i class="bx bx-face icon"></i>
-              <span class="text nav-text">Dosen</span>
-            </a>
-          </li>
-
-          <li class="nav-linkl">
-            <a href="../ruangan">
-              <i class="bx bx-buildings icon"></i>
-              <span class="text nav-text">Ruangan</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="bottom-content">
-        <li class="">
-          <a href="#">
-            <i class="bx bxs-user icon"></i>
-            <span class="text nav-text">Admin</span>
-          </a>
-        </li>
-        <li class="">
-          <a href="../keluar">
-            <i class="bx bx-log-out icon"></i>
-            <span class="text nav-text">Logout</span>
-          </a>
-        </li>
-      </div>
-    </div>
-  </nav> -->
-
 <script src="https://unpkg.com/feather-icons"></script>
 
 <div class="container">
+  <div class="mt-3 mb-3">
+    <form action="" method="post">
+      {% csrf_token %}
+      <input type="search" name="cari" placeholder="cari: Pemograman Dasar" class="form-control">
+    </form>
+  </div>
   <!-- kalo gabisa hapus aja search nya -->
-  <div class="input-group mt-4 mb-3 w-50">
+  <!-- <div class="input-group mt-4 mb-3 w-50">
     <input
       type="search"
       class="form-control"
@@ -93,7 +25,7 @@
     <span class="input-group-text" id="search-addon">
       <i data-feather="search"></i>
     </span>
-  </div>
+  </div> -->
   <!-- sampai sini -->
   <div>
     <a href="/tambah-matakuliah" class="text-decoration-none"
@@ -151,17 +83,11 @@
                 </div>
               </div>
               <div class="modal-body">
-                Apakah anda yakin akan menghapus data matakuliah<strong
-                  >{{ matakuliah.matkul }}</strong
-                >
-                dengan Kode Matakuliah <strong>{{ matakuliah.kodematkul }}</strong> ?
+                Apakah anda yakin akan menghapus data matakuliah<strong> {{ matakuliah.matkul }} </strong>
+                dengan Kode Matakuliah <strong>{{ matakuliah.kodematkul }}</strong>?
               </div>
               <div class="modal-footer">
-                <a
-                  href="{% url 'hapus_matakuliah' matakuliah.id %}"
-                  class="btn btn-danger"
-                  >Hapus</a
-                >
+                <a href="{% url 'hapus_matakuliah' matakuliah.id %}" class="btn btn-danger">Hapus</a>
                 <button class="btn btn-dark" data-dismiss="modal">Back</button>
               </div>
             </div>

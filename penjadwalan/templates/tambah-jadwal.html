@@ -14,18 +14,6 @@
 
               {% csrf_token %}
               {{ form.as_p }}
-              <script>
-                $(function () {
-                    $(".datetimepicker-input").datetimepicker({
-                        format: 'YYYY-MM-DD HH:mm:ss',
-                        icons: {
-                            time: 'fas fa-clock'
-                        }
-                    });
-                });
-            </script>
-                <h6></h6>
-
                 <button type="submit" class="btn btn-info text-white">Add</button>
 
                 <button class="btn btn-danger">

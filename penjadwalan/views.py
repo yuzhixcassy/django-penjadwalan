@@ -34,15 +34,22 @@ def signup(request):
 #                                   J A D W A L
 
 def jadwal(request):
+    if request.POST:
+        keyword = request.POST['cari']
+        keyword = keyword.title()
+        jdwl = Jadwal.objects.filter(hari__contains=keyword)
+        konteks = {
+            'jdwl' : jdwl,
+        }
+    else:
+        jdwl = Jadwal.objects.all().order_by('-id')
+        paginator = Paginator(jdwl, 5)
+        page = request.GET.get('page')
+        jdwl = paginator.get_page(page)
 
-    jdwl = Jadwal.objects.all().order_by('-id')
-    paginator = Paginator(jdwl, 5)
-    page = request.GET.get('page')
-    jdwl = paginator.get_page(page)
-
-    konteks = {
-        'jdwl' : jdwl,
-    }
+        konteks = {
+            'jdwl' : jdwl,
+        }
     return render(request, 'jadwal.html', konteks) #konteks
 
 @login_required(login_url=settings.LOGIN_URL)
@@ -115,13 +122,21 @@ def cek_bentrok(form_jadwal:FormJadwal):
 
 #                                   D O S E N
 def dosen(request):
-    dsn = Dosen.objects.all().order_by('-id')
-    paginator = Paginator(dsn, 4)
-    page = request.GET.get('page')
-    dsn = paginator.get_page(page)
-    konteks = {
-        'dsn' : dsn,
-    }
+    if request.POST:
+        keyword = request.POST['cari']
+        keyword = keyword.title()
+        dsn = Dosen.objects.filter(nama__contains=keyword)
+        konteks = {
+            'dsn' : dsn,
+        }
+    else:
+        dsn = Dosen.objects.all().order_by('-id')
+        paginator = Paginator(dsn, 4)
+        page = request.GET.get('page')
+        dsn = paginator.get_page(page)
+        konteks = {
+            'dsn' : dsn,
+        }
     return render(request, 'dosen.html', konteks)
 
 @login_required(login_url=settings.LOGIN_URL)
@@ -131,19 +146,13 @@ def tambah_dosen(request):
         if form.is_valid():
             form.save()
             form = FormDosen()
-            pesan = "Data Dosen berhasil disimpan!"
-            
-            konteks = {
-                'form' : form,
-                'pesan' : pesan,
-            }
-            return render(request, 'tambah-dosen.html', konteks)
+            return redirect('dosen')
     else:
         form = FormDosen()
         konteks = {
             'form' : form,
         }
-    return render(request, 'tambah-dosen.html', konteks)
+    return render (request, 'tambah-dosen.html', konteks)
 
 @login_required(login_url=settings.LOGIN_URL)
 def ubah_dosen(request, id_dosen):
@@ -174,16 +183,21 @@ def hapus_dosen(request, id_dosen):
 
 #                                   M A T K U L
 def matakuliah(request):
-
-    matkul = Matakuliah.objects.all().order_by('-id')
-    paginator = Paginator(matkul, 5)
-    page = request.GET.get('page')
-    matkul = paginator.get_page(page)
-
-
-    konteks = {
-        'matkul' : matkul,
-    }
+    if request.POST:
+        keyword = request.POST['cari']
+        keyword = keyword.title()
+        matkul = Matakuliah.objects.filter(matkul__contains=keyword)
+        konteks = {
+            'matkul' : matkul,
+        }
+    else:
+        matkul = Matakuliah.objects.all().order_by('matkul')
+        paginator = Paginator(matkul, 5)
+        page = request.GET.get('page')
+        matkul = paginator.get_page(page)
+        konteks = {
+            'matkul' : matkul,
+        }
     return render(request, 'matakuliah.html', konteks) 
 
 @login_required(login_url=settings.LOGIN_URL)
@@ -222,24 +236,30 @@ def ubah_matakuliah(request, id_matakuliah):
 @login_required(login_url=settings.LOGIN_URL)
 def hapus_matakuliah(request, id_matakuliah):
     matakuliah = Matakuliah.objects.filter(id=id_matakuliah)
-    matakuliah.delete()
 
+    matakuliah.delete()
     messages.success(request, "Data berhasil dihapus!")
+
     return redirect('matakuliah')
 
 
 #                                   R U A N G A N
 def ruangan(request):
-
-    rngn = Ruangan.objects.all().order_by('lab')
-    paginator = Paginator(rngn, 5)
-    page = request.GET.get('page')
-    rngn = paginator.get_page(page)
-
-
-    konteks = {
-        'rngn' : rngn,
-    }
+    if request.POST:
+        keyword = request.POST['cari']
+        keyword = keyword.title()
+        rngn = Ruangan.objects.filter(lab__contains=keyword)
+        konteks = {
+            'rngn' : rngn,
+        }
+    else:
+        rngn = Ruangan.objects.all().order_by('lab')
+        paginator = Paginator(rngn, 5)
+        page = request.GET.get('page')
+        rngn = paginator.get_page(page)
+        konteks = {
+            'rngn' : rngn,
+        }
     return render(request, 'ruangan.html', konteks) 
 
 @login_required(login_url=settings.LOGIN_URL)
@@ -265,8 +285,8 @@ def ubah_ruangan(request, id_ruangan):
         form = FormRuangan(request.POST, instance=ruangan)
         if form.is_valid():
             form.save()
-            messages.success(request, "Jadwal berhasil diperbarui!")
-            return redirect('ubah_matakuliah', id_ruangan = id_ruangan)
+            messages.success(request, "Ruangan berhasil diperbarui!")
+            return redirect('ubah_ruangan', id_ruangan = id_ruangan)
     else:
         form = FormRuangan(instance=ruangan)
         konteks = {
@@ -278,7 +298,8 @@ def ubah_ruangan(request, id_ruangan):
 @login_required(login_url=settings.LOGIN_URL)
 def hapus_ruangan(request, id_ruangan):
     ruangan = Ruangan.objects.filter(id=id_ruangan)
-    ruangan.delete()
 
+    ruangan.delete()
     messages.success(request, "Data berhasil dihapus!")
+
     return redirect('ruangan')
