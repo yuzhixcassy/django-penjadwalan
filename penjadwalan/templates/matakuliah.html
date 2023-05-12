@@ -7,11 +7,23 @@
 <script src="https://unpkg.com/feather-icons"></script>
 
 <div class="container">
-  <div class="mt-3 mb-3">
-    <form action="" method="post">
+  <form action="" method="post">
+  <div class="input-group mt-4 mb-3 w-50">
+ 
       {% csrf_token %}
-      <input type="search" name="cari" placeholder="cari: Pemograman Dasar" class="form-control">
-    </form>
+    <input
+      type="search"
+      name="cari"
+      class="form-control"
+      placeholder="Cari: Analisa Big Data"
+      aria-label="Search"
+      aria-describedby="search-addon"
+    />
+  </form>
+
+    <!-- <span class="input-group-text" id="search-addon">
+      <i data-feather="search"></i>
+    </span>  -->
   </div>
   <!-- kalo gabisa hapus aja search nya -->
   <!-- <div class="input-group mt-4 mb-3 w-50">
@@ -55,7 +67,7 @@
     <tbody>
       {% for matakuliah in matkul %}
       <tr>
-        <td><a href="{% url 'ubah_matakuliah' matakuliah.id %}">{{matakuliah.kodematkul}}</a></td>
+        <td>{{matakuliah.kodematkul}}</td>
         <td>{{matakuliah.matkul}}</td>
         <td>{{matakuliah.sks}}</td>
         <td>

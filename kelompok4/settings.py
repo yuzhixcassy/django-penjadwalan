@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'penjadwalan',
-    'bootstrap_datepicker_plus',
-    'widget_tweaks',
+    # 'bootstrap_datepicker_plus',
+    # 'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +84,9 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'STRICT_TRANS_TABLES',
+        },
     }
 }
 
@@ -134,6 +137,6 @@ LOGIN_REDIRECT_URL = '/home'
 LOGIN_URL = 'masuk'
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
-
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 #DATE_INPUT_FORMATS = '%d-%m-%Y'

@@ -131,7 +131,7 @@ def dosen(request):
         }
     else:
         dsn = Dosen.objects.all().order_by('-id')
-        paginator = Paginator(dsn, 4)
+        paginator = Paginator(dsn, 5)
         page = request.GET.get('page')
         dsn = paginator.get_page(page)
         konteks = {
@@ -161,6 +161,7 @@ def ubah_dosen(request, id_dosen):
     if request.POST:
         form = FormDosen(request.POST, instance=dosen)
         if form.is_valid():
+            nama = form.cleaned_data['nama']
             form.save()
             messages.success(request, "Data berhasil diperbarui!")
             return redirect('ubah_dosen', id_dosen = id_dosen)
@@ -198,7 +199,7 @@ def matakuliah(request):
         konteks = {
             'matkul' : matkul,
         }
-    return render(request, 'matakuliah.html', konteks) 
+    return render(request, 'matakuliah.html', konteks)
 
 @login_required(login_url=settings.LOGIN_URL)
 def tambah_matakuliah(request):
@@ -222,6 +223,8 @@ def ubah_matakuliah(request, id_matakuliah):
     if request.POST:
         form = FormMatakuliah(request.POST, instance=matakuliah)
         if form.is_valid():
+            kodematkul = form.cleaned_data['kodematkul']
+            matkul = form.cleaned_data['matkul']
             form.save()
             messages.success(request, "Jadwal berhasil diperbarui!")
             return redirect('ubah_matakuliah', id_matakuliah = id_matakuliah)
@@ -247,7 +250,7 @@ def hapus_matakuliah(request, id_matakuliah):
 def ruangan(request):
     if request.POST:
         keyword = request.POST['cari']
-        keyword = keyword.title()
+        keyword = keyword.upper()
         rngn = Ruangan.objects.filter(lab__contains=keyword)
         konteks = {
             'rngn' : rngn,
@@ -284,6 +287,7 @@ def ubah_ruangan(request, id_ruangan):
     if request.POST:
         form = FormRuangan(request.POST, instance=ruangan)
         if form.is_valid():
+            lab = form.cleaned_data['lab']
             form.save()
             messages.success(request, "Ruangan berhasil diperbarui!")
             return redirect('ubah_ruangan', id_ruangan = id_ruangan)

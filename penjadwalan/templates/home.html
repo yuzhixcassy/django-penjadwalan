@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <section class="home">
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}" />
+
+<div class="container2">
+  <div class="logo22">
+    <img src="{% static 'img/lab.png' %}" alt="">
+  </div>
+  <div class="text2">
+    <h1>Penjadwalan Lab Komputer</h1>
+    <p>Universitas Budi Luhur</p>
+  </div>
+</div>
+
+    <!-- <section class="home">
       <p class="text">
         Selamat Datang {% if user.is_authenticated %},<strong> {{user}} </strong>{% endif %}
       </p>
-      <p class="text">
-        Penjadwalan LAB ICT UBL
-      </p>
-      <div class="text">Jakarta Selatan, Univesitas Budi Luhur</div>
-    </section>
+    </section> -->
 {% endblock %}

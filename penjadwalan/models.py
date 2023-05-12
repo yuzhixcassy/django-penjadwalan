@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class Ruangan(models.Model):
     lab = models.CharField(max_length=50)
     keterangan = models.CharField(max_length=100, null=True, blank=True)
@@ -19,9 +18,9 @@ class Matakuliah(models.Model):
         return self.matkul
 
 class Dosen(models.Model):
-    nip = models.IntegerField(null=True, blank=True)
+    nip = models.CharField(max_length=10, null=True, blank=True)
     nama = models.CharField(max_length=50)
-    notelp = models.IntegerField(null=True, blank=True)
+    notelp = models.CharField(max_length=12, null=True, blank=True)
     mail = models.CharField(max_length=50, null=True, blank=True)
     
     def __str__(self):
